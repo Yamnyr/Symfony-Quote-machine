@@ -3,33 +3,18 @@
 {% block title %}Liste des citations{% endblock %}
 
 {% block body %}
-    <style>
-        .example-wrapper {
-            margin: 1em auto;
-            max-width: 800px;
-            width: 95%;
-            font: 18px/1.5 sans-serif;
-        }
-
-        .example-wrapper code {
-            background: #F5F5F5;
-            padding: 2px 6px;
-        }
-    </style>
-
     <div class="example-wrapper">
         <h1><strong>Liste des citations</strong></h1>
         <ul>
             {% for quote in quotes %}
-                <li><strong>{{ quote.content }} </strong> <br> by <p class="text-muted">--{{ quote.meta }}&nbsp
+                <li class="m-5"><strong>{{ quote.content }} </strong> <br> by <p class="text-muted">--{{ quote.meta }}&nbsp
                         &nbsp {% if quote.category %} <a href="/category/{{ quote.category.id }}" type="button"
                                                          class="btn btn-sm btn-dark">{{ quote.category }}</a> {% endif %}
                         {% if is_granted('ROLE_ADMIN') %}
-                        <br><a
-                                type="button" class="btn btn-gray" href="/quote/{{ quote.id }}/edit">modifier</a>|<a
-                                type="button" class="btn btn-gray" href="/quote/{{ quote.id }}/delete">supprimer</a></p>
+                        <br>
+                        <a type="button" class="btn btn-outline-warning m-2" href="/quote/{{ quote.id }}/edit">modifier</a>
+                        <a type="button" class="btn btn-outline-danger m-2" href="/quote/{{ quote.id }}/delete">supprimer</a></p>
                     {% endif %}
-
                 </li>
             {% endfor %}
         </ul>

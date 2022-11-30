@@ -21,6 +21,19 @@
     {% endblock %}
 </head>
 <body>
+<style>
+    .example-wrapper {
+        margin: 1em auto;
+        max-width: 800px;
+        width: 95%;
+        font: 18px/1.5 sans-serif;
+    }
+
+    .example-wrapper code {
+        background: #F5F5F5;
+        padding: 2px 6px;
+    }
+</style>
 <nav class="navbar navbar-expand-md navbar-light bg-light mb-4">
     <div class="container-fluid">
         <a class="navbar-brand m-2" href="{{ path('quote_index') }}"><h4 class="font-weight-bold">Quote-Machine</h4></a>
@@ -77,8 +90,9 @@
         </div>
     </div>
 </nav>
-<main class="container-fluid">
+<main class="container-fluid"><div class="example-wrapper">
     {% block body %}{% endblock %}
+    </div>
 </main>
 
 </body>

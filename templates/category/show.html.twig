@@ -17,6 +17,12 @@
         </tr>
         </tbody>
     </table>
+
+    <a class="btn btn-outline-secondary m-2" {{ path('app_category_index') }}">retour à la liste</a>
+
+    <a class="btn btn-outline-warning m-2" href="{{ path('app_category_edit', {'id': category.id}) }}">modifier</a>
+
+    <a {{ include('category/_delete_form.html.twig') }} </a>
     <div class="example-wrapper">
         <h1><strong>Liste des citations venant de {{ category.name }}</strong></h1>
         <ul>
@@ -25,17 +31,12 @@
                     <p class="text-muted">--{{ quote.meta }}&nbsp &nbsp
                         <a href="/category/{{ quote.category.id }}" type="button"
                            class="btn btn-sm btn-dark">{{ quote.category }}</a> </br>
-                        <a type="button" class="btn btn-gray" href="/quote/{{ quote.id }}/edit">modifier</a>|
-                        <a type="button" class="btn btn-gray" href="/quote/{{ quote.id }}/delete">supprimer</a>
+                        <a type="button" class="btn btn-outline-warning m-2" href="/quote/{{ quote.id }}/edit">modifier</a>
+                        <a type="button" class="btn btn-outline-danger m-2" href="/quote/{{ quote.id }}/delete">supprimer</a>
                     </p>
                 </li>
             {% endfor %}
         </ul>
     </div>
 
-    <a href="{{ path('app_category_index') }}">back to list</a>
-
-    <a href="{{ path('app_category_edit', {'id': category.id}) }}">edit</a>
-
-    {{ include('category/_delete_form.html.twig') }}
 {% endblock %}

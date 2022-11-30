@@ -101,7 +101,7 @@
         "db-validate": "bin/console doctrine:schema:validate",
         "migrations-status": "php bin/console doctrine:migrations:status",
         "cs": "vendor/bin/php-cs-fixer fix",
-        "db": "php bin/console make:migration; php bin/console doctrine:migration:migrate; php bin/console doctrine:fixtures:load [--purge-with-truncate] [--no-interaction]"
+        "db": "php bin/console doctrine:database:drop --if-exists --force && php bin/console doctrine:database:create && php bin/console doctrine:migration:migrate && php bin/console doctrine:fixtures:load --no-interaction"
     },
     "conflict": {
         "symfony/symfony": "*"

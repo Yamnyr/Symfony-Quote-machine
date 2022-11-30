@@ -16,12 +16,20 @@ class QuoteType extends AbstractType
     {
         $builder
             ->add('content', TextType::class, [
+                'label' => 'contenu',
                 'required' => true,
+                'attr' => [
+                    'placeholder' => 'Entrez la nuvelle citation',
+                ],
             ])
             ->add('meta', TextType::class, [
                 'required' => true,
+                'attr' => [
+                    'placeholder' => 'Entrez l\'origine de la citation',
+                ],
             ])
             ->add('category', EntityType::class, [
+                'label' => 'categorie',
                 'class' => Category::class,
                 'required' => false,
                 'choice_label' => 'name',
