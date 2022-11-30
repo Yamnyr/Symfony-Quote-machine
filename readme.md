@@ -2,6 +2,8 @@ Quote-Machine
 
 Installation du projet
 
+    composer install
+
 Configuration de la base de données
     
 fichier .env
@@ -9,8 +11,7 @@ fichier .env
 
 Création de la base de données, exécution des migrations et chargement des fixtures
 
-    php bin/console make:migration
-    php bin/console doctrine:migrations:migrate
+    composer db
 
 Lancement du serveur de développement
 
