@@ -7,11 +7,11 @@
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for category in categories %}
@@ -20,7 +20,9 @@
                 <td>{{ category.name }}</td>
                 <td>
                     <a class="btn btn-outline-secondary" href="{{ path('app_category_show', {'id': category.id}) }}">afficher</a>
-                    <a class="btn btn-outline-warning" href="{{ path('app_category_edit', {'id': category.id}) }}">modifier</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a class="btn btn-outline-warning" href="{{ path('app_category_edit', {'id': category.id}) }}">modifier</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -30,6 +32,7 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a class="btn btn-success" href="{{ path('app_category_new') }}">Créer une nouvelle categorie</a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a class="btn btn-success" href="{{ path('app_category_new') }}">Créer une nouvelle categorie</a>
+    {% endif %}
 {% endblock %}
