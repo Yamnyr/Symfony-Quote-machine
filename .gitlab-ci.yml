@@ -41,7 +41,7 @@ test: # lance script composer test
   dependencies:
     - install
   script:
-    - php bin/console doctrine:schema:drop && php bin/console doctrine:schema:create && php bin/console doctrine:schema:update
+    - composer test2
   tags:
     - php81
     - composer
