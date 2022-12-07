@@ -7,13 +7,16 @@
         <h1><strong>Liste des citations</strong></h1>
         <ul>
             {% for quote in quotes %}
-                <li class="m-5"><strong>{{ quote.content }} </strong> <br> by <p class="text-muted">--{{ quote.meta }}&nbsp
+                <li class="m-5"><strong>{{ quote.content }} </strong> <br> by <p class="text-muted">--{{ quote.meta }}
+                        &nbsp
                         &nbsp {% if quote.category %} <a href="/category/{{ quote.category.id }}" type="button"
                                                          class="btn btn-sm btn-dark">{{ quote.category }}</a> {% endif %}
-                        {% if is_granted('ROLE_ADMIN') %}
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
                         <br>
-                        <a type="button" class="btn btn-outline-warning m-2" href="/quote/{{ quote.id }}/edit">modifier</a>
-                        <a type="button" class="btn btn-outline-danger m-2" href="/quote/{{ quote.id }}/delete">supprimer</a></p>
+                        <a type="button" class="btn btn-outline-warning m-2"
+                           href="/quote/{{ quote.id }}/edit">modifier</a>
+                        <a type="button" class="btn btn-outline-danger m-2" href="/quote/{{ quote.id }}/delete">supprimer</a>
+                    </p>
                     {% endif %}
                 </li>
             {% endfor %}

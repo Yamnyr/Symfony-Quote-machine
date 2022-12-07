@@ -15,13 +15,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class QuoteController extends AbstractController
 {
     #[Route('/quote', name: 'quote_index')]
+    #[IsGranted('ROLE_USER')]
     public function index(Request $request, QuoteRepository $quoteRepository): Response
     {
         $queryBuilder = $quoteRepository->createQueryBuilder('q');
 
         $search = $request->query->get('search');
         if (!empty($search)) {
-            $queryBuilder->where('q.content LIKE :search')->setParameter('search', '%'.$search.'%');
+            $queryBuilder->where('q.content LIKE :search')->setParameter('search', '%' . $search . '%');
         }
 
         return $this->render('quote/index.html.twig', [
@@ -30,7 +31,7 @@ class QuoteController extends AbstractController
     }
 
     #[Route('/quote/{id}/delete', name: 'quote_delete')]
-    #[IsGranted('ROLE_ADMIN')]
+    #[IsGranted('ROLE_USER')]
     public function delete(ManagerRegistry $doctrine, int $id): Response
     {
         $entityManager = $doctrine->getManager();
@@ -43,7 +44,7 @@ class QuoteController extends AbstractController
     }
 
     #[Route('/quote/{id}/edit', name: 'quote_edit')]
-    #[IsGranted('ROLE_ADMIN')]
+    #[IsGranted('ROLE_USER')]
     public function update(ManagerRegistry $doctrine, Quote $quote, Request $request): Response
     {
         $form = $this->createForm(QuoteType::class, $quote);
@@ -84,7 +85,7 @@ class QuoteController extends AbstractController
     }
 
     #[Route('/quote/new', name: 'quote_new')]
-    #[IsGranted('ROLE_ADMIN')]
+    #[IsGranted('ROLE_USER')]
     public function new(Request $request, ManagerRegistry $doctrine): Response
     {
         $quote = new Quote();

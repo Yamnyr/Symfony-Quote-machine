@@ -37,19 +37,21 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light mb-4">
     <div class="container-fluid">
         <a class="navbar-brand m-2" href="{{ path('quote_index') }}"><h4 class="font-weight-bold">Quote-Machine</h4></a>
-        {% if is_granted('ROLE_ADMIN') %}
-            <div class="btn-group">
-                <button class="btn btn-gray dropdown-toggle btn-outline-secondary m-2" type="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                    <h7>ajouter</h7>
-                </button>
+        <div class="btn-group">
+            <button class="btn btn-gray dropdown-toggle btn-outline-secondary m-2" type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                <h7>ajouter</h7>
+            </button>
+            {% if is_granted('ROLE_USER') %}
                 <ul class="dropdown-menu">
-                    <li><a href="/category/new" type="button" class="btn btn-gray">Ajouter une catégorie</a></li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li><a href="/category/new" type="button" class="btn btn-gray">Ajouter une catégorie</a></li>
+                    {% endif %}
                     <li><a href="/quote/new" type="button" class="btn btn-gray">Ajouter une citation</a></li>
                 </ul>
-            </div>
-        {% endif %}
+            {% endif %}
+        </div>
         <div class="btn-group">
             <button class="btn btn-gray dropdown-toggle btn-outline-secondary m-2" type="button"
                     data-bs-toggle="dropdown"
@@ -90,8 +92,9 @@
         </div>
     </div>
 </nav>
-<main class="container-fluid"><div class="example-wrapper">
-    {% block body %}{% endblock %}
+<main class="container-fluid">
+    <div class="example-wrapper">
+        {% block body %}{% endblock %}
     </div>
 </main>
 
