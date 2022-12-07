@@ -36,6 +36,16 @@ phpunit: # Chargement des fixtures et exécution des tests
     - php81
     - composer
 
+test: # lance script composer test
+  stage: test
+  dependencies:
+    - install
+  script:
+    - composer test
+  tags:
+    - php81
+    - composer
+
 lint:twig: # Vérification du Twig
   stage: code
   dependencies:
