@@ -15,14 +15,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class QuoteController extends AbstractController
 {
     #[Route('/quote', name: 'quote_index')]
-    #[IsGranted('ROLE_USER')]
     public function index(Request $request, QuoteRepository $quoteRepository): Response
     {
         $queryBuilder = $quoteRepository->createQueryBuilder('q');
 
         $search = $request->query->get('search');
         if (!empty($search)) {
-            $queryBuilder->where('q.content LIKE :search')->setParameter('search', '%'.$search.'%');
+            $queryBuilder->where('q.content LIKE :search')->setParameter('search', '%' . $search . '%');
         }
 
         return $this->render('quote/index.html.twig', [
