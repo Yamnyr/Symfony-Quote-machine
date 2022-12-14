@@ -47,7 +47,7 @@ test: # lance script composer test
   dependencies:
     - install
   script:
-    - composer test2
+    - composer test
   tags:
     - php81
     - composer

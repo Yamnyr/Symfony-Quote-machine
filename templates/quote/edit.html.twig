@@ -5,9 +5,9 @@
 {% block body %}
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="submit" class="btn btn-success">Modifier</button>
-        <a class="btn btn-outline-secondary" href="{{ path('quote_index') }}">retour à la liste</a>
-        <a type="button" class="btn btn-outline-danger m-2" href="/quote/{{ quote.id }}/delete">supprimer</a>
+    {{ form_widget(form) }}
+    <button type="submit" class="btn btn-success">modifier</button>
+    <a class="btn btn-outline-secondary" href="{{ path('quote_index') }}">retour à la liste</a>
+    <a type="button" class="btn btn-outline-danger m-2" href="/quote/{{ quote.id }}/delete">supprimer</a>
     {{ form_end(form) }}
 {% endblock %}

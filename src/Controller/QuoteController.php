@@ -21,7 +21,7 @@ class QuoteController extends AbstractController
 
         $search = $request->query->get('search');
         if (!empty($search)) {
-            $queryBuilder->where('q.content LIKE :search')->setParameter('search', '%' . $search . '%');
+            $queryBuilder->where('q.content LIKE :search')->setParameter('search', '%'.$search.'%');
         }
 
         return $this->render('quote/index.html.twig', [
