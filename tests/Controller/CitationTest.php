@@ -5,6 +5,7 @@ namespace App\Tests\Controller;
 use App\Factory\UserFactory;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Zenstruck\Foundry\Test\Factories;
+use App\Repository\UserRepository;
 
 class CitationTest extends WebTestCase
 {
@@ -79,4 +80,12 @@ class CitationTest extends WebTestCase
         $this->assertRouteSame('quote_index');
         $this->assertSelectorTextContains('body', 'Aucun résultat trouvé');
     }
+
+    public function testCategory(): void
+    {
+        $client = static::createClient();
+        
+
+    }
+
 }
