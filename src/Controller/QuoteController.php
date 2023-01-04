@@ -45,7 +45,7 @@ class QuoteController extends AbstractController
 
     #[Route('/quote/{id}/edit', name: 'quote_edit')]
     #[IsGranted(QuoteVoter::EDIT, subject: 'quote')]
-    public function update(ManagerRegistry $doctrine, Request $request): Response
+    public function update(ManagerRegistry $doctrine, Quote $quote, Request $request): Response
     {
         $form = $this->createForm(QuoteType::class, $quote);
 

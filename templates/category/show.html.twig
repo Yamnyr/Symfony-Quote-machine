@@ -30,10 +30,13 @@
                 <li><strong>{{ quote.content }} </strong> </br> by
                     <p class="text-muted">--{{ quote.meta }}&nbsp &nbsp
                         <a href="/category/{{ quote.category.id }}" type="button"
-                           class="btn btn-sm btn-dark">{{ quote.category }}</a> </br>
-                        {% if is_granted('ROLE_ADMIN') %}
+                           class="btn btn-sm btn-dark">{{ quote.category }}</a><br>
+                        par : {{ quote.author.name }} </br>
+                        {% if is_granted('QUOTE_EDIT', quote) %}
                             <a type="button" class="btn btn-outline-warning m-2"
                                href="/quote/{{ quote.id }}/edit">modifier</a>
+                        {% endif %}
+                        {% if is_granted('QUOTE_DELETE', quote) %}
                             <a type="button" class="btn btn-outline-danger m-2" href="/quote/{{ quote.id }}/delete">supprimer</a>
                         {% endif %}
                     </p>

@@ -57,7 +57,6 @@ class QuoteFixtures extends Fixture implements DependentFixtureInterface
                 'author' => UserFactory::random(),
             ];
         });
-
     }
 
     public function getDependencies(): array
