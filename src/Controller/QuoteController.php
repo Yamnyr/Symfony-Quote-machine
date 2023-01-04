@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Quote;
 use App\Form\QuoteType;
 use App\Repository\QuoteRepository;
+use App\Security\Voter\QuoteVoter;
 use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,7 +22,7 @@ class QuoteController extends AbstractController
 
         $search = $request->query->get('search');
         if (!empty($search)) {
-            $queryBuilder->where('q.content LIKE :search')->setParameter('search', '%'.$search.'%');
+            $queryBuilder->where('q.content LIKE :search')->setParameter('search', '%' . $search . '%');
         }
 
         return $this->render('quote/index.html.twig', [
@@ -30,8 +31,8 @@ class QuoteController extends AbstractController
     }
 
     #[Route('/quote/{id}/delete', name: 'quote_delete')]
-    #[IsGranted('ROLE_USER')]
-    public function delete(ManagerRegistry $doctrine, int $id): Response
+    #[IsGranted(QuoteVoter::DELETE, subject: 'quote')]
+    public function delete(ManagerRegistry $doctrine, Quote $quote, int $id): Response
     {
         $entityManager = $doctrine->getManager();
         $quote = $entityManager->getRepository(Quote::class)->find($id);
@@ -43,8 +44,8 @@ class QuoteController extends AbstractController
     }
 
     #[Route('/quote/{id}/edit', name: 'quote_edit')]
-    #[IsGranted('ROLE_USER')]
-    public function update(ManagerRegistry $doctrine, Quote $quote, Request $request): Response
+    #[IsGranted(QuoteVoter::EDIT, subject: 'quote')]
+    public function update(ManagerRegistry $doctrine, Request $request): Response
     {
         $form = $this->createForm(QuoteType::class, $quote);
 

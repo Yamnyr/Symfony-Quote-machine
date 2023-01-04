@@ -148,6 +148,9 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/rollerworks/password-strength-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/rollerworks/password-strength-validator" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dama/doctrine-test-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/behat/transliterator" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/stof/doctrine-extensions-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/gedmo/doctrine-extensions" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

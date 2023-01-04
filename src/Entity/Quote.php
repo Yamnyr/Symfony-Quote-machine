@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\QuoteRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: QuoteRepository::class)]
 class Quote
@@ -20,7 +21,13 @@ class Quote
     private ?string $meta = null;
 
     #[ORM\ManyToOne(inversedBy: 'quotes')]
+    #[ORM\JoinColumn(onDelete: 'SET NULL')]
     private ?Category $category = null;
+
+    #[ORM\ManyToOne(inversedBy: 'quotes')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Gedmo\Blameable(on: 'create')]
+    private ?User $author = null;
 
     public function getId(): ?int
     {
@@ -59,6 +66,18 @@ class Quote
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

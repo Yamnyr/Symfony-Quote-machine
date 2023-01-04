@@ -7,10 +7,11 @@
         <h1><strong>Liste des citations</strong></h1>
         <ul>
             {% for quote in quotes %}
-                <li class="m-5"><strong>{{ quote.content }} </strong> <br> by <p class="text-muted">--{{ quote.meta }}
+                <li class="m-5"><strong>{{ quote.content }} </strong> <br> by <p class="text-muted">-- {{ quote.meta }}
                         &nbsp
                         &nbsp {% if quote.category %} <a href="/category/{{ quote.category.id }}" type="button"
-                                                         class="btn btn-sm btn-dark">{{ quote.category }}</a> {% endif %}
+                                                         class="btn btn-sm btn-dark">{{ quote.category }}</a> {% endif %}</br>
+                        -- créateur : {{ quote.author.name }}
                         {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
                         <br>
                         <a type="button" class="btn btn-outline-warning m-2"

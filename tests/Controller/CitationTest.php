@@ -5,7 +5,6 @@ namespace App\Tests\Controller;
 use App\Factory\UserFactory;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Zenstruck\Foundry\Test\Factories;
-use App\Repository\UserRepository;
 
 class CitationTest extends WebTestCase
 {
@@ -84,8 +83,5 @@ class CitationTest extends WebTestCase
     public function testCategory(): void
     {
         $client = static::createClient();
-        
-
     }
-
 }
