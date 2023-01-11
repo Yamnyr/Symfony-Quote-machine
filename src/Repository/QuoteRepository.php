@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Quote;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -38,6 +39,22 @@ class QuoteRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function findLastCreatedByUser(User $author, int $limit = 5): array
+    {
+        return $this
+            ->createQueryBuilder('q')
+            ->select('q, c, a')
+            ->leftJoin('q.category', 'c')
+            ->join('q.author', 'a')
+            ->where('q.author = :author')
+            ->setParameter('author', $author)
+            ->orderBy('q.date_creation', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
 
 //    /**
 //     * @return Quote[] Returns an array of Quote objects

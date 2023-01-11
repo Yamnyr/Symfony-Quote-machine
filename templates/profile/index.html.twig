@@ -1,0 +1,45 @@
+{#
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProfileController!{% endblock %}
+
+{% block body %}
+
+    <div class="example-wrapper">
+        <h1>Profile de "{{ app.user.name }}"</h1>
+        <h3>Membre de l'application depuis le {{ user.date_inscription|date('d/m/y H:i') }}.</h3>
+        <h1>5 dernières citations</h1>
+    </div>
+{% endblock %}
+#}
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de "{{ user.name }}"{% endblock %}
+
+{% block body %}
+    <h1>Profil de "{{ user.name }}"</h1>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <span>Membre de l'application depuis le {{ user.dateInscription|date('d/m/y H:i') }}.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="list-unstyled">
+        {% for quote in last_created_quotes %}
+            <li>
+                <p>Le
+                    {% block author %} par <a
+                        href="{{ path('app_profile', {id: quote.author.id}) }}">{{ quote.author.name }}</a>{% endblock %}
+                </p>
+            </li>
+        {% else %}
+            <li>Aucune citation</li>
+        {% endfor %}
+    </ul>
+
+
+{% endblock %}

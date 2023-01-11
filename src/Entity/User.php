@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -37,9 +38,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Quote::class)]
     private Collection $quotes;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private \DateTimeInterface $date_inscription;
+
     public function __construct()
     {
         $this->quotes = new ArrayCollection();
+        $this->date_inscription = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -66,7 +71,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -74,7 +79,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -169,6 +174,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $quote->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDateInscription(): \DateTimeInterface
+    {
+        return $this->date_inscription;
+    }
+
+    public function setDateInscription(\DateTimeInterface $date_inscription): self
+    {
+        $this->date_inscription = $date_inscription;
 
         return $this;
     }

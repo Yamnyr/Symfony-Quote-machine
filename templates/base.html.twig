@@ -74,18 +74,19 @@
 
                 </li>
             </ul>
-            <form class="d-flex" method="get" action="{{ path('quote_index') }}">
-                <input class="form-control me-2" type="search" name="search" placeholder="Rechercher..."
+            <form class="d-flex m-2" method="get" action="{{ path('quote_index') }}">
+                <input class="form-control" type="search" name="search" placeholder="Rechercher..."
                        aria-label="Rechercher" value="{{ search|default('') }}">
                 <button class="btn btn-outline-success" type="submit">Rechercher</button>
 
             </form>
-            <div class="navbar-item-custom">
-                {% if app.user %}<a class="btn btn-danger m-2"
-                                    href="{{ path('app_logout') }}">Déconnexion</a>
+            <div class="navbar-item-custom m-2">
+                {% if app.user %}
+                    <a class="btn btn-outline-primary" href="/profile/{{ app.user.id }}">{{ app.user.name }}</a>
+                    <a class="btn btn-danger" href="{{ path('app_logout') }}">Déconnexion</a>
                 {% else %}
-                    <a class="btn btn-success m-2" href="{{ path('app_login') }}">Connexion</a>|<a
-                        class="btn btn-success m-2"
+                    <a class="btn btn-success" href="{{ path('app_login') }}">Connexion</a>|<a
+                        class="btn btn-success"
                         href="{{ path('app_register') }}">Inscription</a>
                 {% endif %}
             </div>

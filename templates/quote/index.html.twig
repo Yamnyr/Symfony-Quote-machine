@@ -13,7 +13,9 @@
                                                    class="btn btn-dark">{{ quote.category }}</a>
                         {% endif %}
                         <br>
-                        par : {{ quote.author.name }}
+                        {# <p>Le {{ quote.createdAt|date('d/m/y H:i') }}{% block author %} par <a
+                            href="{{ path('app_profile', {id: quote.author.id}) }}">{{ quote.author.name }}</a>{% endblock %}
+                    </p> #}
                         {% if is_granted('QUOTE_EDIT', quote)  or is_granted('QUOTE_DELETE', quote) %}
                     <p>
                         {% if is_granted('QUOTE_EDIT', quote) %}

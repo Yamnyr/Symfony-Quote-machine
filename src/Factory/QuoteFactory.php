@@ -35,6 +35,7 @@ final class QuoteFactory extends ModelFactory
             'content' => self::faker()->text(),
             'meta' => self::faker()->name(),
             'author' => UserFactory::new(),
+            'date_creation' => \DateTimeImmutable::createFromMutable(self::faker()->dateTimeThisMonth()),
         ];
     }
 
