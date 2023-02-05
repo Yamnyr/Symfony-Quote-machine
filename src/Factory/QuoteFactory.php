@@ -3,7 +3,9 @@
 namespace App\Factory;
 
 use App\Entity\Quote;
+use App\Event\QuoteCreated;
 use App\Repository\QuoteRepository;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
 use Zenstruck\Foundry\RepositoryProxy;
@@ -29,6 +31,15 @@ use Zenstruck\Foundry\RepositoryProxy;
  */
 final class QuoteFactory extends ModelFactory
 {
+    private EventDispatcherInterface $eventDispatcher;
+
+    public function __construct(EventDispatcherInterface $eventDispatcher)
+    {
+        parent::__construct();
+
+        $this->eventDispatcher = $eventDispatcher;
+    }
+
     protected function getDefaults(): array
     {
         return [
@@ -37,6 +48,15 @@ final class QuoteFactory extends ModelFactory
             'author' => UserFactory::new(),
             'date_creation' => \DateTimeImmutable::createFromMutable(self::faker()->dateTimeThisMonth()),
         ];
+    }
+
+    protected function initialize(): self
+    {
+        return $this
+            ->afterPersist(function (Quote $quote) {
+                $this->eventDispatcher->dispatch(new QuoteCreated($quote));
+            })
+        ;
     }
 
     protected static function getClass(): string

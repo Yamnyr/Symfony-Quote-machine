@@ -7,27 +7,30 @@
         <h1><strong>Liste des citations</strong></h1>
         <ul>
             {% for quote in quotes %}
-                <li class="m-5"><strong>{{ quote.content }} </strong>
-                    <br> by <p class="text-muted"> -- {{ quote.meta }} &nbsp
-                        {% if quote.category %} <a href="/category/{{ quote.category.id }}" type="button"
-                                                   class="btn btn-dark">{{ quote.category }}</a>
-                        {% endif %}
-                        <br>
-                        {# <p>Le {{ quote.createdAt|date('d/m/y H:i') }}{% block author %} par <a
-                            href="{{ path('app_profile', {id: quote.author.id}) }}">{{ quote.author.name }}</a>{% endblock %}
-                    </p> #}
-                        {% if is_granted('QUOTE_EDIT', quote)  or is_granted('QUOTE_DELETE', quote) %}
-                    <p>
-                        {% if is_granted('QUOTE_EDIT', quote) %}
-                            <a type="button" class="btn btn-outline-warning m-2" href="/quote/{{ quote.id }}/edit">modifier</a>
-                        {% endif %}
-                        {% if is_granted('QUOTE_DELETE', quote) %}
-                            <a type="button" class="btn btn-outline-danger m-2" href="/quote/{{ quote.id }}/delete">supprimer</a>
-                        {% endif %}
+                <div class="card my-4 bg-black" style="--bs-bg-opacity: .5;">
+                    <li class="m-5"><strong>{{ quote.content }} </strong>
+                        <br> <p class="text-muted"> <i>-- {{ quote.meta }}</i> &nbsp
+                            {% if quote.category %} <a href="/category/{{ quote.category.id }}" type="button"
+                                                       class="btn btn-dark">{{ quote.category }}</a>
+                            {% endif %}
+                            <br>
+                            Le {{ quote.date_creation|date('d/m/y') }} par {{ quote.author.name }}
+                            <a href="/profile/{{ quote.author.id }}">{{ quote.author.name }}</a>
 
-                    </p>
-                    {% endif %}
-                </li>
+                            <br>
+                            {% if is_granted('QUOTE_EDIT', quote)  or is_granted('QUOTE_DELETE', quote) %}
+                        <p>
+                            {% if is_granted('QUOTE_EDIT', quote) %}
+                                <a type="button" class="btn btn-outline-warning" href="/quote/{{ quote.id }}/edit">modifier</a>
+                            {% endif %}
+                            {% if is_granted('QUOTE_DELETE', quote) %}
+                                <a type="button" class="btn btn-outline-danger" href="/quote/{{ quote.id }}/delete">supprimer</a>
+                            {% endif %}
+
+                        </p>
+                        {% endif %}
+                    </li>
+                </div>
             {% else %}
                 <li>Aucun résultat trouvé</li>
             {% endfor %}

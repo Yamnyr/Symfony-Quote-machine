@@ -3,35 +3,36 @@
 {% block title %}Category index{% endblock %}
 
 {% block body %}
-    <h1>Category index</h1>
-
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for category in categories %}
+    <h1><strong>Liste des Category</strong></h1>
+    <div class="card m-4 bg-black p-4" style="--bs-bg-opacity: .5;">
+        <table class="table text-white">
+            <thead>
             <tr>
-                <td>{{ category.id }}</td>
-                <td>{{ category.name }}</td>
-                <td>
-                    <a class="btn btn-outline-secondary" href="{{ path('app_category_show', {'id': category.id}) }}">afficher</a>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <a class="btn btn-outline-warning" href="{{ path('app_category_edit', {'id': category.id}) }}">modifier</a>
-                    {% endif %}
-                </td>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for category in categories %}
+                <tr>
+                    <td>{{ category.id }}</td>
+                    <td>{{ category.name }}</td>
+                    <td>
+                        <a class="btn btn-outline-secondary" href="{{ path('app_category_show', {'id': category.id}) }}">afficher</a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a class="btn btn-outline-warning" href="{{ path('app_category_edit', {'id': category.id}) }}">modifier</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
     {% if is_granted('ROLE_ADMIN') %}
         <a class="btn btn-success" href="{{ path('app_category_new') }}">Créer une nouvelle categorie</a>
     {% endif %}

@@ -12,6 +12,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Event\QuoteCreated;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class QuoteController extends AbstractController
 {
@@ -86,7 +88,7 @@ class QuoteController extends AbstractController
 
     #[Route('/quote/new', name: 'quote_new')]
     #[IsGranted('ROLE_USER')]
-    public function new(Request $request, ManagerRegistry $doctrine): Response
+    public function new(Request $request, ManagerRegistry $doctrine, EventDispatcherInterface $eventDispatcher): Response
     {
         $quote = new Quote();
 
@@ -97,6 +99,8 @@ class QuoteController extends AbstractController
             $entityManager = $doctrine->getManager();
             $entityManager->persist($quote);
             $entityManager->flush();
+
+            $eventDispatcher->dispatch(new QuoteCreated($quote));
 
             return $this->redirectToRoute('quote_index');
         }

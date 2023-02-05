@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use App\Util\GamificationEngine;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'il éxiste deja un compte utilisant cet email')]
@@ -41,10 +42,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private \DateTimeInterface $date_inscription;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $experience = null;
+
     public function __construct()
     {
         $this->quotes = new ArrayCollection();
         $this->date_inscription = new \DateTimeImmutable();
+        $this->experience = 0;
     }
 
     public function getId(): ?int
@@ -189,4 +194,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getExperience(): ?int
+    {
+        return $this->experience;
+    }
+
+    public function setExperience(?int $experience): self
+    {
+        $this->experience = $experience;
+
+        return $this;
+    }
+
+    public function addExperience(int $experience): self
+    {
+        $this->experience += $experience;
+
+        return $this;
+    }
+
+    public function getLevel(): int
+    {
+        return GamificationEngine::computeLevelForUser($this);
+    }
+
+    public function getLevelCompletion(): int
+    {
+        return GamificationEngine::computeLevelCompletionForUser($this);
+    }
+
 }
