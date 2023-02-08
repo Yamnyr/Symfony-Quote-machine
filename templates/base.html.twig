@@ -24,7 +24,8 @@
 background: linear-gradient(36deg, rgba(28,72,104,1) 0%, rgba(75,110,135,1) 100%); color: #FFFFFF; min-height: 100vh">
 <style>
     .example-wrapper {
-        margin: 1em auto;
+        margin: auto;
+        padding-top: 5em;
         max-width: 800px;
         width: 95%;
         font: 18px/1.5 sans-serif;
@@ -35,9 +36,11 @@ background: linear-gradient(36deg, rgba(28,72,104,1) 0%, rgba(75,110,135,1) 100%
         padding: 2px 6px;
     }
 </style>
-<nav class="navbar navbar-expand-md navbar-light bg-black mb-4" style="--bs-bg-opacity: .5;">
+<nav class="navbar navbar-expand-md navbar-light bg-black mb-4 w-100"
+     style="--bs-bg-opacity: .5; position: fixed !important; z-index: 10">
     <div class="container-fluid">
-        <a class="navbar-brand m-2" href="{{ path('quote_index') }}"><h4 class="font-weight-bold" style="color: #FFFFFF">Quote-Machine</h4></a>
+        <a class="navbar-brand m-2" href="{{ path('quote_index') }}"><h4 class="font-weight-bold"
+                                                                         style="color: #FFFFFF">Quote-Machine</h4></a>
         <div class="btn-group">
             {% if is_granted('ROLE_USER') %}
                 <button class="btn btn-gray dropdown-toggle btn-outline-secondary m-2" type="button"

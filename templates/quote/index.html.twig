@@ -3,13 +3,14 @@
 {% block title %}Liste des citations{% endblock %}
 
 {% block body %}
-    <div class="example-wrapper">
+    <div>
         <h1><strong>Liste des citations</strong></h1>
         <ul>
             {% for quote in quotes %}
                 <div class="card my-4 bg-black" style="--bs-bg-opacity: .5;">
                     <li class="m-5"><strong>{{ quote.content }} </strong>
-                        <br> <p class="text-muted"> <i>-- {{ quote.meta }}</i> &nbsp
+                        <br>
+                        <p class="text-muted"><i>-- {{ quote.meta }}</i> &nbsp
                             {% if quote.category %} <a href="/category/{{ quote.category.id }}" type="button"
                                                        class="btn btn-dark">{{ quote.category }}</a>
                             {% endif %}

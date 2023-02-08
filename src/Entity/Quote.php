@@ -102,6 +102,7 @@ class Quote
 
         return $this;
     }
+
     public function date_creation(): \DateTimeInterface
     {
         return $this->date_creation;

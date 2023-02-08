@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Quote;
+use App\Event\QuoteCreated;
 use App\Form\QuoteType;
 use App\Repository\QuoteRepository;
 use App\Security\Voter\QuoteVoter;
@@ -12,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Event\QuoteCreated;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class QuoteController extends AbstractController
@@ -24,7 +25,7 @@ class QuoteController extends AbstractController
 
         $search = $request->query->get('search');
         if (!empty($search)) {
-            $queryBuilder->where('q.content LIKE :search')->setParameter('search', '%'.$search.'%');
+            $queryBuilder->where('q.content LIKE :search')->setParameter('search', '%' . $search . '%');
         }
 
         return $this->render('quote/index.html.twig', [
@@ -121,5 +122,12 @@ class QuoteController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute('quote_index');
         }*/
+    }
+
+    #[Route('/quote.csv', name: 'quote_csv')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function companyJson(Request $request, ManagerRegistry $doctrine, EventDispatcherInterface $eventDispatcher, SerializerInterface $serializer): Response
+    {
+
     }
 }

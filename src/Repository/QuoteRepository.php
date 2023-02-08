@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\Quote;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -54,6 +55,28 @@ class QuoteRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function random(Category $category = null): ?Quote
+    {
+        $queryBuilder = $this->createQueryBuilder('q')
+            ->select('q.id');
+
+        if (null !== $category) {
+            $queryBuilder->where('q.category = :category')
+                ->setParameter('category', $category);
+        }
+
+        $ids = $queryBuilder->getQuery()->getScalarResult();
+        if (empty($ids)) {
+            return null;
+        }
+
+        $ids = array_column($ids, 'id');
+        $randomId = $ids[array_rand($ids)];
+
+        return $this->find($randomId);
+    }
+
 
 
 //    /**
