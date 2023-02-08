@@ -17,7 +17,6 @@ class ProfileController extends AbstractController
     }
 }*/
 
-
 namespace App\Controller;
 
 use App\Entity\User;
@@ -39,4 +38,3 @@ class ProfileController extends AbstractController
         ]);
     }
 }
-

@@ -47,6 +47,7 @@ class RandomQuoteCommand extends Command
             $output->write('================================================================');
             $this->displayQuote($io, $quote);
             $output->writeln('================================================================');
+
             return self::SUCCESS;
         }
 

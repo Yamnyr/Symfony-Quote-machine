@@ -77,8 +77,6 @@ class QuoteRepository extends ServiceEntityRepository
         return $this->find($randomId);
     }
 
-
-
 //    /**
 //     * @return Quote[] Returns an array of Quote objects
 //     */

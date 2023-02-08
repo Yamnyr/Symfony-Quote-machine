@@ -25,7 +25,7 @@ class QuoteController extends AbstractController
 
         $search = $request->query->get('search');
         if (!empty($search)) {
-            $queryBuilder->where('q.content LIKE :search')->setParameter('search', '%' . $search . '%');
+            $queryBuilder->where('q.content LIKE :search')->setParameter('search', '%'.$search.'%');
         }
 
         return $this->render('quote/index.html.twig', [
@@ -128,6 +128,5 @@ class QuoteController extends AbstractController
     #[IsGranted('ROLE_ADMIN')]
     public function companyJson(Request $request, ManagerRegistry $doctrine, EventDispatcherInterface $eventDispatcher, SerializerInterface $serializer): Response
     {
-
     }
 }
