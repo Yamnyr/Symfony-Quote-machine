@@ -27,6 +27,7 @@ class QuoteController extends AbstractController
         if (!empty($search)) {
             $queryBuilder->where('q.content LIKE :search')->setParameter('search', '%'.$search.'%');
         }
+        $queryBuilder->orderBy('q.date_creation', 'DESC');
 
         return $this->render('quote/index.html.twig', [
             'quotes' => $queryBuilder->getQuery()->getResult(),
