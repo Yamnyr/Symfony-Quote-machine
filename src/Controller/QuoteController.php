@@ -10,11 +10,14 @@ use App\Security\Voter\QuoteVoter;
 use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+
 
 class QuoteController extends AbstractController
 {
@@ -126,8 +129,26 @@ class QuoteController extends AbstractController
     }
 
     #[Route('/quote.csv', name: 'quote_csv')]
-    #[IsGranted('ROLE_ADMIN')]
-    public function companyJson(Request $request, ManagerRegistry $doctrine, EventDispatcherInterface $eventDispatcher, SerializerInterface $serializer): Response
+    public function exportCsv(SerializerInterface $serializer, QuoteRepository $quoteRepository): Response
     {
+        $quotes = $quoteRepository->findAll();
+
+        $csv = $serializer->serialize($quotes, 'csv', [
+            'groups' => 'csv',
+            AbstractObjectNormalizer::SKIP_NULL_VALUES => true,
+        ]);
+
+        $response = new Response($csv);
+
+        $disposition = HeaderUtils::makeDisposition(
+            HeaderUtils::DISPOSITION_ATTACHMENT,
+            'quote.csv'
+        );
+
+        $response->headers->set('Content-Type', 'text/csv');
+        $response->headers->set('Content-Disposition', $disposition);
+
+        return $response;
     }
+
 }

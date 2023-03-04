@@ -4,7 +4,14 @@
 
 {% block body %}
     <div>
-        <h1><strong>Liste des citations</strong></h1>
+        <div class="d-flex justify-content-between align-items-center">
+            <h1>Liste des citations</h1>
+
+            <div class="d-flex">
+                <a href="{{ path('quote_csv') }}" class="btn btn-secondary me-2">Exporter en CSV</a>
+            </div>
+        </div>
+
         <ul>
             {{ component('new_quote', { message: 'Hello Twig Components!' }) }}
             {% for quote in quotes %}
