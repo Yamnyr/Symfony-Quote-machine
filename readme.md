@@ -54,3 +54,12 @@ Exécuter les tests :
 ```shell
 composer test
 ```
+
+## Intitulé du projet
+Un site internet qui permet poster des citations tiré de film, séries... 
+propose à un utilisateur de se logger ou de s'inscrire sur l'application. Après authentification et suivant son rôle, l'utilisateur pourra s'il est admin ajouté supprimer, modifié la totalité des citations et des catégories de citations
+un utilisateur ne pourra pas créer de catégories et pourra seulement modifier et supprimer les citations que lui-même a postées 
+autres fonctionnalités:
+- exporter la liste des citations dans un fichier en .csv
+- System de ludofication: gains d'exp lors du poste d'une citation visible sur la page profile par le biais d'une jauge représentant la quantité d'exp de l'utilisateur avant le prochain level au coté de la liste des citations postés
+-System de recherche
