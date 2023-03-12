@@ -1,20 +1,56 @@
-Quote-Machine
+# Quote Machine
 
-Installation du projet
+## Installation
 
-    composer install
+Installation des dépendances PHP avec composer :
 
-Configuration de la base de données
-    
-fichier .env
-    DATABASE_URL="mysql://[username]:[password]@127.0.0.1:3306/app?serverVersion=8&charset=utf8mb4
+```shell
+composer install
+```
 
-Création de la base de données, exécution des migrations et chargement des fixtures
+Installation des dépendances JavaScript avec npm :
 
-    composer db
+```shell
+npm install
+```
 
-Lancement du serveur de développement
+Compilation des assets :
 
-    symfony serve
-    ou
-    symfony server:start
+```shell
+npm run dev
+npm run build # pour la production
+```
+
+Création d'un fichier `.env.local` à partir du fichier `.env` :
+
+```shell
+cp .env .env.local
+```
+
+Puis modifiez les variables d'environnement du fichier `.env.local` selon votre environnement local.
+
+Mise en place de la base de données :
+
+```shell
+composer db
+```
+
+## Développement
+
+Lancement du serveur de développement :
+
+```shell
+symfony serve
+```
+
+Linter et fixer le code avec PHP-CS-Fixer :
+
+```shell
+composer cs
+```
+
+Exécuter les tests :
+
+```shell
+composer test
+```
